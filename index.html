@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AE Services - Professional Handyman</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d2d2d;
+            overflow-x: hidden;
+            background: #faf8f5;
+        }
+
+        header {
+            background: rgba(250, 248, 245, 0.98);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e8d5c4;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .logo-box {
+            background: #2d2d2d;
+            color: #faf8f5;
+            padding: 0.7rem 1.2rem;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .logo-text {
+            background: #faf8f5;
+            color: #2d2d2d;
+            padding: 0.7rem 1.2rem;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            border: 3px solid #2d2d2d;
+            border-left: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #2d2d2d;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #d4735e;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+
+        /* HOME PAGE */
+        .home-page {
+            background: linear-gradient(135deg, rgba(212, 115, 94, 0.05) 0%, rgba(250, 248, 245, 1) 50%, rgba(228, 187, 151, 0.08) 100%);
+            padding-top: 100px;
+        }
+
+        .hero {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            min-height: calc(100vh - 100px);
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #2d2d2d;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-content .accent {
+            color: #d4735e;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: #5a5a5a;
+            line-height: 1.8;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(135deg, #e4bb97 0%, #d4735e 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(212, 115, 94, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs><pattern id="wood" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse"><line x1="0" y1="40" x2="80" y2="40" stroke="%232d2d2d" stroke-width="0.5" opacity="0.1"/><line x1="0" y1="20" x2="80" y2="20" stroke="%232d2d2d" stroke-width="0.3" opacity="0.08"/><line x1="0" y1="60" x2="80" y2="60" stroke="%232d2d2d" stroke-width="0.3" opacity="0.08"/></pattern></defs><rect fill="url(%23wood)" width="800" height="600"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            z-index: 1;
+        }
+
+        .hero-logo-box {
+            background: #2d2d2d;
+            color: #faf8f5;
+            padding: 3rem 5rem;
+            font-size: 6rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            border: 8px solid #2d2d2d;
+        }
+
+        .hero-logo-text {
+            background: #faf8f5;
+            color: #2d2d2d;
+            padding: 2rem 5rem;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            border: 8px solid #2d2d2d;
+            border-top: none;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .cta-button {
+            padding: 1.2rem 3rem;
+            background: #d4735e;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.95rem;
+        }
+
+        .cta-button:hover {
+            background: #c2624d;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 115, 94, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: #e4bb97;
+            color: #2d2d2d;
+        }
+
+        .cta-button.secondary:hover {
+            background: #d4a878;
+        }
+
+        .services-preview {
+            padding: 5rem 2rem;
+            background: #faf8f5;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+            border: 2px solid #f4ede4;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 115, 94, 0.15);
+            border-color: #e4bb97;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card h3 {
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* PROJECTS PAGE */
+        .projects-page {
+            padding-top: 120px;
+            background: #faf8f5;
+        }
+
+        .page-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            padding-bottom: 5rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            border: 2px solid #f4ede4;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(212, 115, 94, 0.2);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .project-carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-image {
+            min-width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .carousel-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 115, 94, 0.0) 0%, rgba(228, 187, 151, 0.0) 100%);
+            z-index: 0;
+        }
+
+        .carousel-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs><pattern id="grain2" x="0" y="0" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect fill="url(%23grain2)" width="800" height="600"/></svg>');
+            z-index: 1;
+        }
+
+        .carousel-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 3;
+            background: rgba(45, 45, 45, 0.7);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(212, 115, 94, 0.9);
+        }
+
+        .carousel-nav.prev {
+            left: 10px;
+        }
+
+        .carousel-nav.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .carousel-dot.active {
+            background: white;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .project-info {
+            padding: 2rem;
+        }
+
+        .project-info h3 {
+            margin-bottom: 1rem;
+            color: #2d2d2d;
+            font-size: 1.5rem;
+        }
+
+        .project-info p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* BOOKING PAGE */
+        .booking-page {
+            padding-top: 120px;
+            background: linear-gradient(135deg, rgba(228, 187, 151, 0.1) 0%, rgba(250, 248, 245, 1) 100%);
+            min-height: 100vh;
+        }
+
+        .booking-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
+
+        .booking-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 50px rgba(212, 115, 94, 0.15);
+            border: 2px solid #f4ede4;
+        }
+
+        .booking-card h1 {
+            font-size: 2.5rem;
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .booking-intro {
+            text-align: center;
+            font-size: 1.05rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .contact-methods {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-bottom: 0;
+        }
+
+        .contact-card {
+            padding: 1rem 1.25rem;
+            background: #faf8f5;
+            border-radius: 12px;
+            text-align: left;
+            border: 2px solid #f4ede4;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 1rem;
+            width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon img,
+        .contact-icon svg {
+            width: 2rem;
+            height: 2rem;
+            object-fit: contain;
+        }
+
+        .contact-card-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            min-width: 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-card h3 {
+            color: #2d2d2d;
+            margin: 0;
+            font-size: 1.1rem;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        .contact-card a {
+            color: #d4735e;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            word-break: break-word;
+            max-width: 100%;
+            cursor: pointer;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        .booking-form-section {
+            margin-top: 3rem;
+            padding-top: 3rem;
+            border-top: 2px solid #f4ede4;
+        }
+
+        .booking-form-section h2 {
+            text-align: center;
+            color: #2d2d2d;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .email-button {
+            display: block;
+            width: 100%;
+            padding: 1.5rem;
+            background: #d4735e;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .email-button:hover {
+            background: #c2624d;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 115, 94, 0.3);
+        }
+
+        .business-hours {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #faf8f5;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #f4ede4;
+        }
+
+        .business-hours h3 {
+            color: #2d2d2d;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .business-hours p {
+            color: #666;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: #2d2d2d;
+            color: #faf8f5;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(250, 248, 245, 0.2);
+        }
+
+        .thumbtack-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #e4bb97;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+
+        .thumbtack-link:hover {
+            color: #d4735e;
+        }
+
+        .thumbtack-icon {
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 968px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .hero-content h1 {
+                font-size: 3rem;
+            }
+
+            .hero-image {
+                height: 400px;
+            }
+
+            .hero-logo-box {
+                font-size: 4rem;
+                padding: 2rem 3rem;
+            }
+
+            .hero-logo-text {
+                font-size: 2rem;
+                padding: 1.5rem 3rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .booking-card {
+                padding: 2rem;
+            }
+
+            .booking-card h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo-container">
+                <div class="logo-box">AE</div>
+                <span class="logo-text">SERVICES</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active" onclick="showPage('home', event); return false;">Home</a></li>
+                <li><a href="#projects" class="nav-link" onclick="showPage('projects', event); return false;">Projects</a></li>
+                <li><a href="#booking" class="nav-link" onclick="showPage('booking', event); return false;">Booking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page home-page active">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Quality <span class="accent">Solutions</span> for Your Home</h1>
+                <p>Our focus is to find solutions that make the most sense to our clients. We ensure that our client's needs are met to utmost satisfaction.</p>
+                <div class="cta-buttons">
+                    <a href="#booking" class="cta-button" onclick="showPage('booking', event); return false;">Let's Talk</a>
+                    <a href="#projects" class="cta-button secondary" onclick="showPage('projects', event); return false;">See Our Work</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-logo">
+                    <div class="hero-logo-box">AE</div>
+                    <div class="hero-logo-text">SERVICES</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-preview">
+            <div class="page-header">
+                <h1>What We Do</h1>
+                <p>Professional handyman services for all your home repair and improvement needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3>Electrical & HVAC</h3>
+                    <p>Light fixtures, wall sconces, ceiling fans, transformer wiring, humidifier installation, thermostat connections, and electrical repairs.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Plumbing & Fixtures</h3>
+                    <p>Valve installation and repositioning, fixture installation, leak repairs, and general plumbing maintenance throughout your home.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Painting & Carpentry</h3>
+                    <p>Interior painting, molding and baseboard installation, custom trim work, door installation and repairs, and detailed finishing.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🖼️</div>
+                    <h3>Assembly & Wall Mounting</h3>
+                    <p>TV mounting, furniture assembly, shelving installation, wall hangings, appliance setup, and closet organization solutions.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🏡</div>
+                    <h3>Exterior Work</h3>
+                    <p>Deck and porch repair, concrete landing restoration, patio maintenance, walkway work, and outdoor living space improvements.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔨</div>
+                    <h3>General Repairs & Maintenance</h3>
+                    <p>Attic and basement work, window treatments, hardware replacement, home maintenance, and all those projects on your to-do list.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECTS PAGE -->
+    <div id="projects" class="page projects-page">
+        <div class="page-header">
+            <h1>Recent Projects</h1>
+            <p>A collection of spaces we've helped transform with care, craft, and creativity</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img">
+                    <div class="project-carousel" data-carousel="0">
+                        <div class="carousel-images">
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                        </div>
+                        <button class="carousel-nav prev" onclick="event.stopPropagation(); moveCarousel(0, -1);">‹</button>
+                        <button class="carousel-nav next" onclick="event.stopPropagation(); moveCarousel(0, 1);">›</button>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active" onclick="goToSlide(0, 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(0, 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(0, 2)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>HVAC & Electrical Installation</h3>
+                    <p>Removed old humidifier, repositioned saddle valve, and connected wiring between humidifier, transformer, and humidistat. Professional electrical work completed safely and efficiently.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <div class="project-carousel" data-carousel="1">
+                        <div class="carousel-images">
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                        </div>
+                        <button class="carousel-nav prev" onclick="event.stopPropagation(); moveCarousel(1, -1);">‹</button>
+                        <button class="carousel-nav next" onclick="event.stopPropagation(); moveCarousel(1, 1);">›</button>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active" onclick="goToSlide(1, 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(1, 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(1, 2)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Custom Lighting Solutions</h3>
+                    <p>Installed four wall sconces with expert problem-solving when defective fixtures required creative solutions. Meticulous electrical work ensuring safety and quality results.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <div class="project-carousel" data-carousel="2">
+                        <div class="carousel-images">
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                        </div>
+                        <button class="carousel-nav prev" onclick="event.stopPropagation(); moveCarousel(2, -1);">‹</button>
+                        <button class="carousel-nav next" onclick="event.stopPropagation(); moveCarousel(2, 1);">›</button>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active" onclick="goToSlide(2, 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(2, 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(2, 2)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Complete Home Updates</h3>
+                    <p>Multiple projects completed in one day including painting, shelving installation, wall hangings, and door repairs across living rooms, bedrooms, and basements.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <div class="project-carousel" data-carousel="3">
+                        <div class="carousel-images">
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                        </div>
+                        <button class="carousel-nav prev" onclick="event.stopPropagation(); moveCarousel(3, -1);">‹</button>
+                        <button class="carousel-nav next" onclick="event.stopPropagation(); moveCarousel(3, 1);">›</button>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active" onclick="goToSlide(3, 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(3, 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(3, 2)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Furniture & Electronics Setup</h3>
+                    <p>Professional TV mounting, furniture assembly, appliance installation, and wall hanging services. Clean installation with cable management and proper mounting.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <div class="project-carousel" data-carousel="4">
+                        <div class="carousel-images">
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                        </div>
+                        <button class="carousel-nav prev" onclick="event.stopPropagation(); moveCarousel(4, -1);">‹</button>
+                        <button class="carousel-nav next" onclick="event.stopPropagation(); moveCarousel(4, 1);">›</button>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active" onclick="goToSlide(4, 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(4, 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(4, 2)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Ceiling Fan Installation</h3>
+                    <p>Installed ceiling fans on existing light fixtures, updated deck lighting, and electrical repairs. Professional work ensuring proper function and safety.</p>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img">
+                    <div class="project-carousel" data-carousel="5">
+                        <div class="carousel-images">
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250927_233932154.jpg');"></div>
+                            <div class="carousel-image" style="background-image: url('images/fence/PXL_20250916_202602622.jpg');"></div>
+                        </div>
+                        <button class="carousel-nav prev" onclick="event.stopPropagation(); moveCarousel(5, -1);">‹</button>
+                        <button class="carousel-nav next" onclick="event.stopPropagation(); moveCarousel(5, 1);">›</button>
+                        <div class="carousel-dots">
+                            <div class="carousel-dot active" onclick="goToSlide(5, 0)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(5, 1)"></div>
+                            <div class="carousel-dot" onclick="goToSlide(5, 2)"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3>Finishing Touches</h3>
+                    <p>Molding and baseboard installation, door repairs and adjustments, window treatments, and detailed carpentry work throughout attics, decks, and living spaces.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOOKING PAGE -->
+    <div id="booking" class="page booking-page">
+        <div class="booking-container">
+            <div class="booking-card">
+                <h1>Start Your Project</h1>
+                <p class="booking-intro">Every great project starts with a conversation. We'd love to hear from you. <br> <br> Free consultation available.</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-card-content">
+                            <h3>Call or Text</h3>
+                            <a href="tel:5551234567">(555) 123-4567</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-card-content">
+                            <h3>Email Us</h3>
+                            <a href="mailto:hello@aeservices.com">hello@aeservices.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 4L4 10L16 16L28 10L16 4Z" fill="#009FD9"/>
+                                <path d="M4 22L16 28L28 22V16L16 22L4 16V22Z" fill="#009FD9"/>
+                            </svg>
+                        </div>
+                        <div class="contact-card-content">
+                            <h3>Thumbtack</h3>
+                            <a href="https://www.thumbtack.com/il/chicago/handyman/ae-services/service/494887269730820105" target="_blank">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 AE Services. Crafted with care.</p>
+        <p>Independently owned and operated</p>
+        <div class="footer-links">
+            <a href="https://www.thumbtack.com/il/chicago/handyman/ae-services/service/494887269730820105" target="_blank" class="thumbtack-link">
+                <span class="thumbtack-icon">📌</span>
+                Find us on Thumbtack
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        const carouselStates = [0, 0, 0, 0, 0, 0]; // Track current slide for each carousel
+
+        function moveCarousel(carouselIndex, direction) {
+            const carousel = document.querySelectorAll('[data-carousel]')[carouselIndex];
+            const images = carousel.querySelector('.carousel-images');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            const totalSlides = dots.length;
+            
+            carouselStates[carouselIndex] += direction;
+            
+            if (carouselStates[carouselIndex] < 0) {
+                carouselStates[carouselIndex] = totalSlides - 1;
+            } else if (carouselStates[carouselIndex] >= totalSlides) {
+                carouselStates[carouselIndex] = 0;
+            }
+            
+            images.style.transform = `translateX(-${carouselStates[carouselIndex] * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === carouselStates[carouselIndex]);
+            });
+        }
+
+        function goToSlide(carouselIndex, slideIndex) {
+            const carousel = document.querySelectorAll('[data-carousel]')[carouselIndex];
+            const images = carousel.querySelector('.carousel-images');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            
+            carouselStates[carouselIndex] = slideIndex;
+            images.style.transform = `translateX(-${slideIndex * 100}%)`;
+            
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === slideIndex);
+            });
+        }
+
+        function showPage(pageName, event) {
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            document.getElementById(pageName).classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+            
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
